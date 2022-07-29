@@ -1,6 +1,4 @@
-@extends('layouts.main')
-@section('title','Dashboard')
-@section('content')
+
 
 <x-app-layout>
     <x-slot name="header">
@@ -8,7 +6,7 @@
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Dashboard') }}
         </h2>
-        <div class="col-md-10 offset-md-1 dashboard-events-container">
+        {{-- <div class="col-md-10 offset-md-1 dashboard-events-container">
             @if (count($event) > 0)
                 <table class="table">
                     <thead>
@@ -45,10 +43,10 @@
             @else
                 <p>Você ainda não tem livros, <a href="/events/create">Adicionar livros</a></p>
             @endif
-        </div>
+        </div> --}}
     </x-slot>
 
    
 </x-app-layout>
-@endsection
+
 
