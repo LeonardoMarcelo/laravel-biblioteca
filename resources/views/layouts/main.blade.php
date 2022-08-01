@@ -25,7 +25,6 @@
 
             <ul class="list_item">
                 <li class="item"><a href="/" class="nav_link">home</a></li>
-                <li class="item"><a href="/" class="nav_link">produtc</a></li>
                 @auth
                     <li class="nav-item">
                         <a href="/dashboard" class="nav-link">Dashboard</a>

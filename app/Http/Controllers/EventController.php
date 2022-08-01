@@ -19,13 +19,14 @@ class EventController extends Controller
             $event = Event::where([
                 ['title', 'like', '%' . $search . '%']
             ])->get();
+         $romance = $event;
+         $action  = $event;
+
         } else {
             $event = Event::all();
-          
+
             $romance = DB::select('SELECT *, categorias.nome AS nome, events.id AS id FROM events INNER JOIN categorias ON events.categoria_id = categorias.id WHERE events.categoria_id = 1');
             $action = DB::select('SELECT *, categorias.nome AS nome, events.id AS id FROM events INNER JOIN categorias ON events.categoria_id = categorias.id WHERE events.categoria_id = 2');
-          
-          
         }
         return view(
 
@@ -46,10 +47,10 @@ class EventController extends Controller
     }
 
 
- 
+
     public function create()
     {
-        $event = DB::select('SELECT *, categorias.nome AS nome, events.id AS id FROM events INNER JOIN categorias ON events.categoria_id = categorias.id ');
+        $event = DB::select('SELECT * FROM categorias');
         return view('events.create', ['events' => $event]);
     }
 
@@ -61,7 +62,7 @@ class EventController extends Controller
         $event->autor = $request->autor;
         $event->description = $request->description;
         $event->categoria_id = $request->categoria;
-  
+
         //image upload
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
 
@@ -74,21 +75,17 @@ class EventController extends Controller
             $event->image = $imageName;
         }
 
-        // $user = auth()->user();
-        // $event->user_id = $user->id;
+
 
         $event->save();
 
         return redirect('/')->with('msg', 'Evento criado com sucesso!');
     }
-   
+
     public function dashboard()
     {
-        $user = auth()->user();
+        $events =  Event::all();
 
-        $events = $user->events;
-        
-      
         return view('events.dashboard', ['events' => $events]);
     }
 
@@ -102,12 +99,10 @@ class EventController extends Controller
     {
         $user = auth()->user();
         $event = Event::findOrFail($id);
+        $dados = DB::select('SELECT * FROM categorias');
 
-        if ($user->id != $event->user_id) {
-            return redirect('/dashboard');
-        }
 
-        return view('events.edit', ['event' => $event]);
+        return view('events.edit', ['event' => $event, 'dados' => $dados]);
     }
     public function update(Request $request)
     {
@@ -127,7 +122,4 @@ class EventController extends Controller
         Event::findOrFail($request->id)->update($data);
         return redirect('/dashboard')->with('msg', 'Evento editado com sucesso!');
     }
-
-  
-
 }

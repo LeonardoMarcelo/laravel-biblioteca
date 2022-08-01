@@ -1,13 +1,15 @@
+@extends('layouts.main')
+@section('title', 'Biblioteca add livro')
+
+@section('content')
 
 
-<x-app-layout>
-    <x-slot name="header">
      
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Dashboard') }}
         </h2>
-        {{-- <div class="col-md-10 offset-md-1 dashboard-events-container">
-            @if (count($event) > 0)
+        <div class="col-md-10 offset-md-1 dashboard-events-container">
+            @if (count($events) > 0)
                 <table class="table">
                     <thead>
                         <tr>
@@ -19,11 +21,11 @@
                     </thead>
     
                     <tbody>
-                        @foreach ($event as $events)
+                        @foreach ($events as $event)
                             <tr>
                                 <td scope="row">{{ $loop->index + 1 }}</td>
                                 <td><a href="/events/{{ $event->id }}">{{ $events->title }}</a></td>
-                                <td>{{ count($events->title) }}</td>
+                                <td>{{ count($event->title) }}</td>
                                 <td>
                                     <a href="/events/edit/{{ $event->id }}" class="btn btn-info edit-btn">
                                         <ion-icon name="create-outline"></ion-icon>Editar
@@ -43,10 +45,8 @@
             @else
                 <p>Você ainda não tem livros, <a href="/events/create">Adicionar livros</a></p>
             @endif
-        </div> --}}
-    </x-slot>
+        </div>
 
-   
-</x-app-layout>
 
+@endsection
 
